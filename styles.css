@@ -1,0 +1,130 @@
+/*GENERAL*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: black;
+}
+/*HEADER*/
+.header {
+    margin-bottom: auto;
+}
+/*MAIN*/
+/*Display*/
+#display{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    min-height: 2rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    color: blueviolet;
+    background-color: white;
+    outline: 0.2rem;
+    outline-style: double;
+    outline-color: yellow;
+    border-radius: 5px;
+}
+#display p{
+    max-width: 300px;
+    overflow: auto;
+
+}
+/*Keyboard*/
+button {
+    padding: 0.5rem;
+    margin: 0.1rem;
+    min-width: 50px;
+    min-height: 50px;
+    border-style: none;
+    color: white;
+    background-color: blueviolet;
+    border-bottom: 0.5rem solid rgb(0, 255, 213);
+    border-right: 0.5rem solid rgb(0, 255, 213);
+    border-radius: 5px;
+}
+button:hover{
+    background-color: rgb(192, 125, 255);
+}
+button:active { 
+    background-color: blueviolet;
+    border: 0.25rem solid rgb(0, 255, 213);
+    border-top: 0.25rem solid rgb(0, 168, 190);
+    border-left: 0.25rem solid rgb(0, 168, 190);
+    border-bottom: 0.25rem solid rgb(0, 255, 213);
+    border-right: 0.25rem solid rgb(0, 255, 213);
+}
+#keyboard {
+    display: flex;
+    flex-direction: column;
+}
+#clearing {
+    display: flex;
+}
+#back {
+    margin-left: auto;
+}
+.num-op {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+#nums {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(4,1fr);
+}
+#nums button{
+    font-size: 2rem;
+    color: yellow;
+    background-color: rgb(226, 43, 202);
+    border-bottom: 0.5rem solid blueviolet;
+    border-right: 0.5rem solid blueviolet;
+}
+#nums button:hover{
+    background-color: #ff7aed;
+}
+#nums button:active{
+    background-color: rgb(226, 43, 202);
+    border: 0.25rem solid blueviolet;
+    border-top: 0.25rem solid rgb(73, 17, 146);
+    border-left: 0.25rem solid rgb(73, 17, 146);
+    border-bottom: 0.25rem solid blueviolet;
+    border-right: 0.25rem solid blueviolet;
+}
+#operands {
+    display: flex;
+    flex-direction: column;
+}
+#operands button {
+    font-weight: bold;
+}
+/*History*/
+#history{
+    width: 100%;
+    min-height: 5rem;
+    margin-top: 1rem;
+    background-color: black;
+    outline: 0.2rem;
+    outline-style: double;
+    outline-color: yellow;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+/*FOOTER*/
+.footer {
+    margin-top: auto;
+    padding: 1rem;
+}

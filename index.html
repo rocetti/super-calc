@@ -9,6 +9,50 @@
     <title>Super Calc 2000</title>
 </head>
 <body>
-    
+    <div class="header"></div>
+    <div class="main">
+        <div class="calc">
+            <div id="device">
+                <div id="display"><p></p></div>
+                <div id="keyboard">
+                    <div id="clearing">
+                        <button type="button" value="c" class="clear" id="clear" onclick="button_clicked(this)">C</button>
+                        <button type="button" value="ce"  class="clear" id="clear-all" onclick="button_clicked(this)">CE</button>
+                        <button type="button" value="back"  class="clear" id="back" onclick="button_clicked(this)">Backspace</button>
+                    </div>
+                    <div class="num-op">
+                        <div id="nums">
+                            <button type="button" value="1" class="number" id="n1" onclick="button_clicked(this)">1</button>
+                            <button type="button" value="2" class="number" id="n2" onclick="button_clicked(this)">2</button>
+                            <button type="button" value="3" class="number" id="n3" onclick="button_clicked(this)">3</button>
+                            <button type="button" value="4" class="number" id="n4" onclick="button_clicked(this)">4</button>
+                            <button type="button" value="5" class="number" id="n5" onclick="button_clicked(this)">5</button>
+                            <button type="button" value="6" class="number" id="n6" onclick="button_clicked(this)">6</button>
+                            <button type="button" value="7" class="number" id="n7" onclick="button_clicked(this)">7</button>
+                            <button type="button" value="8" class="number" id="n8" onclick="button_clicked(this)">8</button>
+                            <button type="button" value="9" class="number" id="n9" onclick="button_clicked(this)">9</button>
+                            <button type="button" value="." class="operand" id="dot" onclick="button_clicked(this)">.</button>
+                            <button type="button" value="0" class="number" id="n0" onclick="button_clicked(this)">0</button>
+                            <button type="button" value="=" class="operand" id="equal" onclick="button_clicked(this)">=</button>
+                        </div>
+                        <div id="operands">
+                            <button type="button" value="+" class="operand" id="add" onclick="button_clicked(this)">+</button>
+                            <button type="button" value="-"  class="operand" id="sub" onclick="button_clicked(this)">-</button>
+                            <button type="button" value="*"  class="operand" id="mult" onclick="button_clicked(this)">*</button>
+                            <button type="button" value="/"  class="operand" id="divide" onclick="button_clicked(this)">/</button>
+                            <button type="button" value="^"  class="operand" id="power" onclick="button_clicked(this)">pow</button>
+                            <button type="button" value="√"  class="operand" id="sqroot" onclick="button_clicked(this)">&radic;x</button>
+                            <button type="button" value="!"  class="operand" id="fac" onclick="button_clicked(this)">x!</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="history"></div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>All rights reserved to Eredah &copy;</p>
+    </div>
 </body>
 </html>
