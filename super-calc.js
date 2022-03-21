@@ -1,14 +1,12 @@
 //This calc works each operation at a time so we just need to store the current operation 
-let firstNum = "";
-let operand = "";
-let sencondNum = "";
-let result;
+let calcs = [];
 let isFirstNum = true;
 let isWritingFloat = false;
+start_new_calc();
 //On key entered, if its one of the operators grab the num before it as first num after executing any remaining calcs 
 //(this makes the calc work on subsequent operations without the need to press the = button)
 
-
+//On button click act based on class
 function button_clicked(button) {
     let buttonClass = button.className;
         switch (buttonClass) {
@@ -26,35 +24,41 @@ function button_clicked(button) {
                 break;
         }
 }
-
+//Write numbers
 function set_number(n) {
-    write_display(n);
+    let curr_calc = calcs[calcs.length-1];
     if (isFirstNum) {
-        firstNum += n;
+        curr_calc.firstNum += n;
     }else{
-        sencondNum += n;
+        curr_calc.secondNum += n;
     }
+    update_display();
 }
-
+//Write operands and execute previous calc operands if any
 function set_operand(o) {
-    //special cases
+    let curr_calc = calcs[calcs.length-1];
+    //operand special cases
     switch (o) {
         case "!":
             if (isFirstNum) {
-                calculate(firstNum,o,sencondNum);                
+                curr_calc.operand = o;
+                calculate(curr_calc);
             }else{
-                calculate(firstNum,operand,sencondNum);
-                firstNum = result;
-                calculate(firstNum,o,sencondNum);
+                calculate(curr_calc);
+                let new_calc = calcs[calcs.length-1];
+                new_calc.operand = o;
+                calculate(new_calc);
             }
-            isFirstNum = false;
             return;
         case ".":
+            if (isWritingFloat) {
+                return;
+            }
             set_number(o);
             isWritingFloat = true;
             return;
         case "=":
-            calculate(firstNum,operand,sencondNum);
+            calculate(curr_calc);
             return;
         default:
             break;
@@ -62,66 +66,78 @@ function set_operand(o) {
     //if was writing first num end it and write operand
     //else consider the end of second num and calculate
     if (isFirstNum) {
-        operand = o;
-        write_display(o);
-        isFirstNum = false;        
-    } else {
-        calculate(firstNum,operand,sencondNum);
-        firstNum = result;
-        operand = o;
-        write_display(o);
+        curr_calc.operand = o;
+        update_display();
         isFirstNum = false;
+        isWritingFloat = false;
+    } else {
+        calculate(curr_calc);
+        curr_calc.firstNum = result;
+        curr_calc.operand = o;
+        update_display();
+        isFirstNum = false;
+        isWritingFloat = false;
     }
 }
-
-function write_display(x) {
+//DISPLAY
+//Update display text based on current calc
+function update_display() {
     let display = document.getElementById("display");
-    display.firstChild.innerText += x;
+    display.firstChild.innerText = `${calcs[calcs.length-1].firstNum}${calcs[calcs.length-1].operand}${calcs[calcs.length-1].secondNum}`;
 }
-
+//Clear all display text
 function clear_display() {
     let display = document.getElementById("display");
     display.firstChild.innerText = "";
 }
 
-function calculate(a,op,b) {
-    a = Number(a);
-    b = Number(b);
-    switch (op) {
+//SUPPORT FUNCTIONS
+//call for the correct calculation based on operand
+function calculate(calc) {
+    calc.firstNum = Number(calc.firstNum);
+    calc.secondNum = Number(calc.secondNum);
+    
+    switch (calc.operand) {
         case "+":
-            result = add(a,b);
+            calc.result = Math.round(add(calc.firstNum,calc.secondNum) * 1000)/1000;
             break;
         case "-":
-            result = subtract(a,b);
+            calc.result = Math.round(subtract(calc.firstNum,calc.secondNum) * 1000)/1000;
             break;
         case "*":
-            result = multiply(a,b);
+            calc.result = Math.round(multiply(calc.firstNum,calc.secondNum) * 1000)/1000;
             break;
         case "/":
-            result = divide(a,b);
+            calc.result = Math.round(divide(calc.firstNum,calc.secondNum) * 1000)/1000;
             break;
         case "^":
-            result = power(a,b);
+            calc.result = Math.round(power(calc.firstNum,calc.secondNum) * 1000)/1000;
             break;
         case "√":
-            result = sqroot(b);
+            calc.result = Math.round(sqroot(calc.secondNum) * 1000)/1000;
             break;
         case "!":
-            result = factorial(a);
+            calc.result = Math.round(factorial(calc.firstNum) * 1000)/1000;
             break;
     
         default:
             return;
     }
-    start_next_calc();
+    start_new_calc();
 }
-function start_next_calc() {
+function start_new_calc() {
     clear_display();
-    write_display(result);
-    firstNum = "";
-    operand = "";
-    sencondNum = "";
+    let last_result = calcs.length > 0? calcs[calcs.length-1].result : "";
+    let new_calc = {
+        firstNum:last_result,
+        operand:"",
+        secondNum:"",
+        result:"",
+    }
+    calcs.push(new_calc);
+    update_display(new_calc.firstNum);
     isFirstNum = true;
+    console.log(calcs);
 }
 //Math functions
 function add(a,b) {
