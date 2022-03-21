@@ -114,14 +114,18 @@ button:active {
 /*History*/
 #history{
     width: 100%;
-    min-height: 5rem;
+    height: 7rem;
     margin-top: 1rem;
+    padding: 0.5rem;
     background-color: black;
     outline: 0.2rem;
     outline-style: double;
     outline-color: yellow;
     border-radius: 5px;
     overflow-y: auto;
+}
+#history p{
+    font-size: 0.9rem;
 }
 /*FOOTER*/
 .footer {

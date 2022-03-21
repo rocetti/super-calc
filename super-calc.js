@@ -72,8 +72,9 @@ function set_operand(o) {
         isWritingFloat = false;
     } else {
         calculate(curr_calc);
-        curr_calc.firstNum = result;
-        curr_calc.operand = o;
+        let new_calc = calcs[calcs.length-1];
+        new_calc.firstNum = curr_calc.result;
+        new_calc.operand = o;
         update_display();
         isFirstNum = false;
         isWritingFloat = false;
@@ -123,6 +124,7 @@ function calculate(calc) {
         default:
             return;
     }
+    update_history_display();
     start_new_calc();
 }
 function start_new_calc() {
@@ -138,6 +140,15 @@ function start_new_calc() {
     update_display(new_calc.firstNum);
     isFirstNum = true;
     console.log(calcs);
+}
+function update_history_display() {
+    let hist_display = document.getElementById("history");
+    let new_para = document.createElement("p");
+    calcs.forEach(calc => {
+        new_para.innerText = `${calc.firstNum}${calc.operand}${calc.secondNum} = ${calc.result}`;
+        hist_display.appendChild(new_para);
+    });
+    hist_display.scrollTop = hist_display.scrollHeight;
 }
 //Math functions
 function add(a,b) {
