@@ -204,7 +204,6 @@ function start_new_calc() {
     update_display(new_calc.firstNum);
     isFirstNum = true;
     isWritingFloat = false;
-    console.log(calcs);
 }
 
 //Math functions
