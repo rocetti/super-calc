@@ -17,6 +17,22 @@ body {
     color: white;
     background-color: black;
 }
+/*SCROLLING*/
+#display p::-webkit-scrollbar, #history::-webkit-scrollbar {
+    width: 0.3rem;
+    height: 0.3rem;
+}
+#display p::-webkit-scrollbar-track, #history::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+#display p::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+}
+#history::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(25, 25, 25);
+}
 /*HEADER*/
 .header {
     margin-bottom: auto;
