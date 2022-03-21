@@ -17,7 +17,20 @@ function button_clicked(button) {
                 set_operand(button.value)
                 break;
             case "clear":
-                //clear()
+                switch (button.value) {
+                    case "c":
+                        clean_calc();
+                        break;
+                    case "ce":
+                        clean_everything();
+                        break;
+                    case "back":
+                        clean_char();
+                        break;
+                
+                    default:
+                        break;
+                }
                 break;
         
             default:
@@ -80,6 +93,44 @@ function set_operand(o) {
         isWritingFloat = false;
     }
 }
+//Clearing calcs
+//clean the current calc
+function clean_calc() {
+    let curr_calc = calcs[calcs.length - 1];
+    curr_calc.firstNum = "";
+    curr_calc.operand = "";
+    curr_calc.secondNum = "";
+    curr_calc.result = "";
+    isFirstNum = true;
+    isWritingFloat = false;
+    update_display();
+}
+//clean all calcs
+function clean_everything() {
+    document.getElementById("history").innerHTML = "";
+    calcs = [];
+    start_new_calc();
+    update_history_display();
+}
+//clean the last inserted character in current calc
+function clean_char() {
+    let curr_calc = calcs[calcs.length - 1];
+    if (curr_calc.secondNum.toString() != "") {
+        if (curr_calc.secondNum[curr_calc.secondNum.length - 1] == ".") {
+            isWritingFloat = false;
+        }
+        curr_calc.secondNum = curr_calc.secondNum.slice(0,-1);
+    }else if (curr_calc.operand != "") {
+        curr_calc.operand = "";
+        isFirstNum = true;
+    }else if (curr_calc.firstNum.toString() != "") {
+        if (curr_calc.firstNum[curr_calc.firstNum.length - 1] == ".") {
+            isWritingFloat = false;
+        }
+        curr_calc.firstNum = curr_calc.firstNum.slice(0,-1);
+    }
+    update_display();
+}
 //DISPLAY
 //Update display text based on current calc
 function update_display() {
@@ -91,7 +142,19 @@ function clear_display() {
     let display = document.getElementById("display");
     display.firstChild.innerText = "";
 }
-
+//history display shows last calcs
+function update_history_display() {
+    let hist_display = document.getElementById("history");
+    let new_para = document.createElement("p");
+    calcs.forEach(calc => {
+        if (calc.firstNum == "" && calc.operand == "" && calc.secondNum == "") {
+            return;
+        }
+        new_para.innerText = `${calc.firstNum}${calc.operand}${calc.secondNum} = ${calc.result}`;
+        hist_display.appendChild(new_para);
+    });
+    hist_display.scrollTop = hist_display.scrollHeight;
+}
 //SUPPORT FUNCTIONS
 //call for the correct calculation based on operand
 function calculate(calc) {
@@ -127,6 +190,7 @@ function calculate(calc) {
     update_history_display();
     start_new_calc();
 }
+//create new calc object
 function start_new_calc() {
     clear_display();
     let last_result = calcs.length > 0? calcs[calcs.length-1].result : "";
@@ -139,17 +203,10 @@ function start_new_calc() {
     calcs.push(new_calc);
     update_display(new_calc.firstNum);
     isFirstNum = true;
+    isWritingFloat = false;
     console.log(calcs);
 }
-function update_history_display() {
-    let hist_display = document.getElementById("history");
-    let new_para = document.createElement("p");
-    calcs.forEach(calc => {
-        new_para.innerText = `${calc.firstNum}${calc.operand}${calc.secondNum} = ${calc.result}`;
-        hist_display.appendChild(new_para);
-    });
-    hist_display.scrollTop = hist_display.scrollHeight;
-}
+
 //Math functions
 function add(a,b) {
     return a+b;
